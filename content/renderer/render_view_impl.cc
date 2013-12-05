@@ -976,6 +976,9 @@ void RenderView::ApplyWebPreferences(const WebPreferences& prefs,
   settings->setExpensiveBackgroundThrottlingMaxDelay(
       prefs.expensive_background_throttling_max_delay);
 
+  // Crosswalk shared settings:
+  settings->setMainFrameClipsContent(false);
+
 #if defined(OS_ANDROID)
   settings->setAllowCustomScrollbarInMainFrame(false);
   settings->setTextAutosizingEnabled(prefs.text_autosizing_enabled);
