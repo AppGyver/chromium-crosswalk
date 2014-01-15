@@ -55,6 +55,7 @@
 
 namespace base {
 
+#if !defined(OS_ANDROID)
 template <typename Type>
 class ThreadLocalPointer {
  public:
@@ -74,6 +75,28 @@ class ThreadLocalPointer {
 
   DISALLOW_COPY_AND_ASSIGN(ThreadLocalPointer<Type>);
 };
+#else
+template <typename Type>
+ class ThreadLocalPointer {
+  public:
+   ThreadLocalPointer() {}
+
+   ~ThreadLocalPointer() { slot_.Free(); }
+
+   Type* Get() {
+     return static_cast<Type*>(slot_.Get());
+   }
+
+   void Set(Type* ptr) {
+     slot_.Set(const_cast<void*>(static_cast<const void*>(ptr)));
+   }
+
+  private:
+   ThreadLocalStorage::Slot slot_;
+
+   DISALLOW_COPY_AND_ASSIGN(ThreadLocalPointer<Type>);
+};
+#endif  // !OS_ANDROID
 
 class ThreadLocalBoolean {
  public:
