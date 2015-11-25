@@ -196,8 +196,13 @@ void SetRuntimeFeaturesDefaultsAndUpdateFromArgs(
   if (command_line.HasSwitch(switches::kEnableWebVR))
     WebRuntimeFeatures::enableWebVR(true);
 
+#if defined(OS_WIN)
+  // FIXME: Remove this condition after rebase to chromium v47.
+  WebRuntimeFeatures::enablePresentationAPI(true);
+#else
   if (command_line.HasSwitch(switches::kDisablePresentationAPI))
     WebRuntimeFeatures::enablePresentationAPI(false);
+#endif
 
   if (command_line.HasSwitch(switches::kDisableRemotePlaybackAPI))
     WebRuntimeFeatures::enableRemotePlaybackAPI(false);
