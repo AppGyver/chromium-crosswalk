@@ -229,6 +229,7 @@ class ContentViewCoreImpl : public ContentViewCore,
                    jfloat dipScale);
 
   jint GetBackgroundColor(JNIEnv* env, jobject obj);
+  void SetBackgroundColor(JNIEnv* env, jobject obj, jint color);
   void SetAllowJavascriptInterfacesInspection(
       JNIEnv* env,
       const base::android::JavaParamRef<jobject>& obj,
