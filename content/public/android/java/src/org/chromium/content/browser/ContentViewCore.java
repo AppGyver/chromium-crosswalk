@@ -2893,6 +2893,14 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Displa
         mSelectionPopupController.setContextualSearchClient(contextualSearchClient);
     }
 
+    @CalledByNative
+    public void didOverscroll(boolean clampedX, boolean clampedY) {
+        mContentViewClient.onOverScrolled(mRenderCoordinates.getScrollXPixInt(),
+                                          mRenderCoordinates.getScrollYPixInt(),
+                                          clampedX,
+                                          clampedY);
+    }
+
     /**
      * Call this when we get result from ResultReceiver passed in calling showSoftInput().
      * @param resultCode The result of showSoftInput() as defined in InputMethodManager.
